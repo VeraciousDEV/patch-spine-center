@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Patch Spine Center · Ocean Beach</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #071525;
+  --deep: #0B1F33;
+  --teal: #1A9B8E;
+  --teal-glow: #2DD4BF;
+  --gold: #E8C547;
+  --cream: #F4F1EA;
+  --muted: #8A9BB0;
+  --white: #ffffff;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  font-family: 'Outfit', system-ui, sans-serif;
+  background: var(--navy);
+  color: var(--cream);
+  overflow-x: hidden;
+}
+h1,h2,h3,.serif { font-family: 'Cormorant Garamond', serif; font-weight: 500; }
+a { color: inherit; text-decoration: none; }
+
+/* NAV */
+nav {
+  position: fixed; top:0; left:0; right:0; z-index:100;
+  padding: 1.4rem 4vw;
+  display: flex; justify-content: space-between; align-items: center;
+  background: linear-gradient(to bottom, rgba(7,21,37,0.85), transparent);
+  backdrop-filter: blur(12px);
+  transition: all .4s;
+}
+nav.scrolled { background: rgba(7,21,37,0.95); padding: 1rem 4vw; }
+.logo { font-family: 'Cormorant Garamond', serif; font-size: 1.7rem; letter-spacing: 1px; }
+.logo em { font-style: normal; color: var(--teal-glow); }
+nav ul { display: flex; gap: 2.5rem; list-style: none; font-size: 0.9rem; letter-spacing: 0.5px; }
+nav a { opacity: 0.85; transition: opacity .3s; }
+nav a:hover { opacity: 1; color: var(--teal-glow); }
+.nav-cta {
+  border: 1px solid var(--teal-glow);
+  padding: 0.55rem 1.4rem;
+  border-radius: 100px;
+  font-size: 0.85rem;
+  letter-spacing: 0.5px;
+  transition: all .3s;
+}
+.nav-cta:hover { background: var(--teal); border-color: var(--teal); }
+
+/* HERO */
+.hero {
+  height: 100vh;
+  background: url('imagine_images/EmWsp.jpg') center/cover no-repeat;
+  display: flex; align-items: flex-end;
+  position: relative;
+}
+.hero::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(7,21,37,0.92) 0%, rgba(7,21,37,0.3) 50%, transparent 100%);
+}
+.hero-content {
+  position: relative; z-index: 2;
+  padding: 0 4vw 8vh;
+  max-width: 900px;
+}
+.eyebrow {
+  font-size: 0.8rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--teal-glow);
+  margin-bottom: 1.2rem;
+}
+.hero h1 {
+  font-size: clamp(3.5rem, 7vw, 6.5rem);
+  line-height: 0.92;
+  font-weight: 500;
+  margin-bottom: 1.5rem;
+}
+.hero h1 span { display: block; font-style: italic; color: var(--gold); }
+.hero p {
+  font-size: 1.25rem;
+  max-width: 480px;
+  opacity: 0.9;
+  margin-bottom: 2.5rem;
+  font-weight: 300;
+}
+.btn-row { display: flex; gap: 1rem; align-items: center; }
+.btn {
+  display: inline-block;
+  padding: 1rem 2.2rem;
+  border-radius: 100px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  transition: all .3s;
+}
+.btn-primary { background: var(--teal); color: white; }
+.btn-primary:hover { background: var(--teal-glow); transform: translateY(-2px); }
+.btn-ghost { border: 1px solid rgba(255,255,255,0.3); }
+.btn-ghost:hover { border-color: white; }
+
+/* SECTIONS */
+section { padding: 8rem 4vw; }
+.section-label {
+  font-size: 0.75rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 1rem;
+}
+h2 {
+  font-size: clamp(2.8rem, 5vw, 4.2rem);
+  line-height: 1.05;
+  margin-bottom: 1.5rem;
+}
+.lead { font-size: 1.15rem; max-width: 520px; opacity: 0.85; font-weight: 300; }
+
+/* ABOUT */
+.about {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 6vw;
+  align-items: center;
+  background: var(--deep);
+}
+.about-img {
+  position: relative;
+}
+.about-img img {
+  width: 100%;
+  border-radius: 20px;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+}
+.about-img::before {
+  content: '';
+  position: absolute;
+  inset: -20px -20px auto auto;
+  width: 140px; height: 140px;
+  background: url('imagine_images/U4sfM.jpg') center/cover;
+  border-radius: 16px;
+  opacity: 0.8;
+  z-index: -1;
+}
+.about-text p { margin-bottom: 1.2rem; font-weight: 300; line-height: 1.7; }
+
+/* SERVICES */
+.services { background: var(--navy); }
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  margin-top: 4rem;
+}
+.service {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  padding: 2.2rem 1.8rem;
+  border-radius: 18px;
+  transition: all .4s cubic-bezier(.2,.8,.2,1);
+  position: relative;
+  overflow: hidden;
+}
+.service::before {
+  content: '';
+  position: absolute; top:0; left:0; right:0; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--teal-glow), transparent);
+  opacity: 0;
+  transition: opacity .4s;
+}
+.service:hover {
+  background: rgba(26,155,142,0.08);
+  transform: translateY(-8px);
+  border-color: rgba(45,212,191,0.2);
+}
+.service:hover::before { opacity: 1; }
+.service h3 { font-size: 1.6rem; margin-bottom: 0.8rem; }
+.service p { font-size: 0.95rem; opacity: 0.75; font-weight: 300; line-height: 1.6; }
+
+/* VISUAL BREAK */
+.visual-break {
+  height: 50vh;
+  background: url('imagine_images/LA0pJ.jpg') center/cover fixed;
+  position: relative;
+}
+.visual-break::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(to bottom, var(--navy), transparent 20%, transparent 80%, var(--deep));
+}
+
+/* TESTIMONIALS */
+.testimonials { background: var(--deep); }
+.testi-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 2rem;
+  margin-top: 4rem;
+}
+.testi {
+  padding: 2.5rem 2rem;
+  background: rgba(255,255,255,0.02);
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.05);
+}
+.testi p { font-family: 'Cormorant Garamond', serif; font-size: 1.35rem; line-height: 1.5; margin-bottom: 1.5rem; font-style: italic; }
+.testi .who { font-size: 0.85rem; letter-spacing: 1px; color: var(--teal-glow); text-transform: uppercase; }
+
+/* LOCATION */
+.location {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 4vw;
+  align-items: center;
+  background: var(--navy);
+}
+.location img {
+  width: 100%;
+  height: 520px;
+  object-fit: cover;
+  border-radius: 24px;
+}
+.info h3 { font-size: 2rem; margin-bottom: 1.5rem; }
+.info p { margin-bottom: 0.8rem; font-weight: 300; }
+.hours { margin: 1.5rem 0; }
+.hours div { display: flex; justify-content: space-between; padding: 0.6rem 0; border-bottom: 1px solid rgba(255,255,255,0.08); font-size: 0.95rem; }
+
+/* CONTACT */
+.contact {
+  background: linear-gradient(135deg, var(--deep), var(--navy));
+  text-align: center;
+}
+.contact-form {
+  max-width: 520px;
+  margin: 3rem auto 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.contact-form input,
+.contact-form textarea,
+.contact-form select {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  padding: 1.1rem 1.3rem;
+  border-radius: 12px;
+  color: white;
+  font-family: inherit;
+  font-size: 1rem;
+}
+.contact-form input:focus,
+.contact-form textarea:focus { outline: none; border-color: var(--teal); }
+.contact-form button {
+  background: var(--teal);
+  color: white;
+  border: none;
+  padding: 1.1rem;
+  border-radius: 100px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  transition: all .3s;
+}
+.contact-form button:hover { background: var(--teal-glow); }
+
+/* FOOTER */
+footer {
+  padding: 4rem 4vw 2rem;
+  text-align: center;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+footer .logo { font-size: 1.4rem; color: white; margin-bottom: 0.5rem; }
+
+/* ANIMATIONS */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.9s cubic-bezier(.2,.8,.2,1);
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+@media (max-width: 900px) {
+  .about, .location, .services-grid, .testi-grid { grid-template-columns: 1fr; }
+  nav ul { display: none; }
+  .hero h1 { font-size: 3.2rem; }
+  section { padding: 5rem 5vw; }
+}
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="logo">Patch <em>Spine</em></div>
+  <ul>
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Care</a></li>
+    <li><a href="#stories">Stories</a></li>
+    <li><a href="#visit">Visit</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Reserve</a>
+</nav>
+
+<header class="hero">
+  <div class="hero-content">
+    <div class="eyebrow">Ocean Beach · Est. 1984</div>
+    <h1>Aligned<br><span>by the tide.</span></h1>
+    <p>Holistic spinal care for those who live by the ocean. Gentle precision. Lasting ease.</p>
+    <div class="btn-row">
+      <a href="#contact" class="btn btn-primary">Begin Your Visit</a>
+      <a href="#services" class="btn btn-ghost">The Approach</a>
+    </div>
+  </div>
+</header>
+
+<section id="about" class="about">
+  <div class="about-img reveal">
+    <img src="imagine_images/bVTSp.jpg" alt="Dr. Warren Patch">
+  </div>
+  <div class="about-text reveal">
+    <div class="section-label">The Practice</div>
+    <h2>Dr. Warren Patch</h2>
+    <p>Native San Diegan. Lifelong surfer. Licensed chiropractor since 1982. His family practice on Sunset Cliffs Boulevard has quietly cared for Ocean Beach and Point Loma for four decades.</p>
+    <p>Equally at home with infants, athletes, and elders, Dr. Patch works with an intuitive, highly refined touch — informed by science, second-degree Reiki, and decades of hands-on experience. The adjustment is never rushed. The conversation is always real.</p>
+    <p>When the spine moves freely, everything else follows.</p>
+  </div>
+</section>
+
+<section id="services" class="services">
+  <div class="section-label">Care</div>
+  <h2>Whole-person<br>spinal work.</h2>
+  <p class="lead">Not just the back. The entire living system — posture, movement, recovery, and daily life by the water.</p>
+  <div class="services-grid">
+    <div class="service reveal">
+      <h3>Precision Adjustments</h3>
+      <p>Manual, instrument, and drop-table techniques selected for your body that day. Never formulaic.</p>
+    </div>
+    <div class="service reveal">
+      <h3>All Ages</h3>
+      <p>From newborns to active seniors. Gentle, effective, and deeply respectful of each stage of life.</p>
+    </div>
+    <div class="service reveal">
+      <h3>Lifestyle Alignment</h3>
+      <p>Posture, movement patterns, and practical guidance so the care continues after you leave.</p>
+    </div>
+    <div class="service reveal">
+      <h3>Active Recovery</h3>
+      <p>Support for surfers, runners, and anyone whose body is shaped by the coast and its rhythms.</p>
+    </div>
+  </div>
+</section>
+
+<div class="visual-break"></div>
+
+<section id="stories" class="testimonials">
+  <div class="section-label">Stories</div>
+  <h2>In their words.</h2>
+  <div class="testi-grid">
+    <div class="testi reveal">
+      <p>“He has kept me going all these years. I do all the exercises he taught me every day.”</p>
+      <div class="who">Margaret · 100th Birthday</div>
+    </div>
+    <div class="testi reveal">
+      <p>“An instinctive ability to find the problem and fix it in a completely gentle and painless manner.”</p>
+      <div class="who">Long-time Patient</div>
+    </div>
+    <div class="testi reveal">
+      <p>“Whenever my active life misaligns me, I know I can count on Dr. Patch.”</p>
+      <div class="who">Scott Lembach</div>
+    </div>
+  </div>
+</section>
+
+<section id="visit" class="location">
+  <img src="imagine_images/ga3JI.jpg" alt="Ocean Beach Pier" class="reveal">
+  <div class="info reveal">
+    <div class="section-label">Visit</div>
+    <h3>Sunset Cliffs Boulevard</h3>
+    <p>1952 Sunset Cliffs Blvd<br>Ocean Beach, San Diego<br>CA 92107</p>
+    <p style="margin-top:1.2rem;">(619) 224-3301<br>drpatch@gmail.com</p>
+    <div class="hours">
+      <div><span>Monday</span><span>9–12 · 2–6</span></div>
+      <div><span>Tue – Thu</span><span>9–1 · 2–6</span></div>
+      <div><span>Friday – Sunday</span><span>Closed</span></div>
+    </div>
+    <p style="font-size:0.9rem; opacity:0.7;">Please call to schedule. Street parking; note sweeping days.</p>
+  </div>
+</section>
+
+<section id="contact" class="contact">
+  <div class="section-label">Begin</div>
+  <h2>Reserve your time.</h2>
+  <p class="lead" style="margin: 0 auto;">New patients are given space and attention. Reach out and we’ll find a time that works.</p>
+  <form class="contact-form" action="mailto:drpatch@gmail.com" method="post" enctype="text/plain">
+    <input type="text" name="name" placeholder="Name" required>
+    <input type="email" name="email" placeholder="Email" required>
+    <input type="tel" name="phone" placeholder="Phone">
+    <select name="type">
+      <option>New patient</option>
+      <option>Returning</option>
+      <option>Question</option>
+    </select>
+    <textarea name="message" rows="4" placeholder="Anything we should know?"></textarea>
+    <button type="submit">Send</button>
+  </form>
+</section>
+
+<footer>
+  <div class="logo">Patch <em style="color:var(--teal-glow);font-style:normal;">Spine</em> Center</div>
+  <p>Ocean Beach · San Diego · Since 1984</p>
+</footer>
+
+<script>
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 60);
+});
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) e.target.classList.add('visible');
+  });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
