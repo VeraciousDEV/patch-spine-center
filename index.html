@@ -1,434 +1,1016 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Patch Spine Center · Ocean Beach</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
-<style>
-:root {
-  --navy: #071525;
-  --deep: #0B1F33;
-  --teal: #1A9B8E;
-  --teal-glow: #2DD4BF;
-  --gold: #E8C547;
-  --cream: #F4F1EA;
-  --muted: #8A9BB0;
-  --white: #ffffff;
-}
-* { margin:0; padding:0; box-sizing:border-box; }
-html { scroll-behavior:smooth; }
-body {
-  font-family: 'Outfit', system-ui, sans-serif;
-  background: var(--navy);
-  color: var(--cream);
-  overflow-x: hidden;
-}
-h1,h2,h3,.serif { font-family: 'Cormorant Garamond', serif; font-weight: 500; }
-a { color: inherit; text-decoration: none; }
-
-/* NAV */
-nav {
-  position: fixed; top:0; left:0; right:0; z-index:100;
-  padding: 1.4rem 4vw;
-  display: flex; justify-content: space-between; align-items: center;
-  background: linear-gradient(to bottom, rgba(7,21,37,0.85), transparent);
-  backdrop-filter: blur(12px);
-  transition: all .4s;
-}
-nav.scrolled { background: rgba(7,21,37,0.95); padding: 1rem 4vw; }
-.logo { font-family: 'Cormorant Garamond', serif; font-size: 1.7rem; letter-spacing: 1px; }
-.logo em { font-style: normal; color: var(--teal-glow); }
-nav ul { display: flex; gap: 2.5rem; list-style: none; font-size: 0.9rem; letter-spacing: 0.5px; }
-nav a { opacity: 0.85; transition: opacity .3s; }
-nav a:hover { opacity: 1; color: var(--teal-glow); }
-.nav-cta {
-  border: 1px solid var(--teal-glow);
-  padding: 0.55rem 1.4rem;
-  border-radius: 100px;
-  font-size: 0.85rem;
-  letter-spacing: 0.5px;
-  transition: all .3s;
-}
-.nav-cta:hover { background: var(--teal); border-color: var(--teal); }
-
-/* HERO */
-.hero {
-  height: 100vh;
-  background: url('imagine_images/hero.jpg') center/cover no-repeat;
-  display: flex; align-items: flex-end;
-  position: relative;
-}
-.hero::after {
-  content: '';
-  position: absolute; inset: 0;
-  background: linear-gradient(to top, rgba(7,21,37,0.92) 0%, rgba(7,21,37,0.3) 50%, transparent 100%);
-}
-.hero-content {
-  position: relative; z-index: 2;
-  padding: 0 4vw 8vh;
-  max-width: 900px;
-}
-.eyebrow {
-  font-size: 0.8rem;
-  letter-spacing: 4px;
-  text-transform: uppercase;
-  color: var(--teal-glow);
-  margin-bottom: 1.2rem;
-}
-.hero h1 {
-  font-size: clamp(3.5rem, 7vw, 6.5rem);
-  line-height: 0.92;
-  font-weight: 500;
-  margin-bottom: 1.5rem;
-}
-.hero h1 span { display: block; font-style: italic; color: var(--gold); }
-.hero p {
-  font-size: 1.25rem;
-  max-width: 480px;
-  opacity: 0.9;
-  margin-bottom: 2.5rem;
-  font-weight: 300;
-}
-.btn-row { display: flex; gap: 1rem; align-items: center; }
-.btn {
-  display: inline-block;
-  padding: 1rem 2.2rem;
-  border-radius: 100px;
-  font-weight: 500;
-  letter-spacing: 0.3px;
-  transition: all .3s;
-}
-.btn-primary { background: var(--teal); color: white; }
-.btn-primary:hover { background: var(--teal-glow); transform: translateY(-2px); }
-.btn-ghost { border: 1px solid rgba(255,255,255,0.3); }
-.btn-ghost:hover { border-color: white; }
-
-/* SECTIONS */
-section { padding: 8rem 4vw; }
-.section-label {
-  font-size: 0.75rem;
-  letter-spacing: 4px;
-  text-transform: uppercase;
-  color: var(--teal);
-  margin-bottom: 1rem;
-}
-h2 {
-  font-size: clamp(2.8rem, 5vw, 4.2rem);
-  line-height: 1.05;
-  margin-bottom: 1.5rem;
-}
-.lead { font-size: 1.15rem; max-width: 520px; opacity: 0.85; font-weight: 300; }
-
-/* ABOUT */
-.about {
-  display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
-  gap: 6vw;
-  align-items: center;
-  background: var(--deep);
-}
-.about-img {
-  position: relative;
-}
-.about-img img {
-  width: 100%;
-  border-radius: 20px;
-  box-shadow: 0 30px 60px rgba(0,0,0,0.4);
-}
-.about-img::before {
-  content: '';
-  position: absolute;
-  inset: -20px -20px auto auto;
-  width: 140px; height: 140px;
-  background: url('imagine_images/cliffs.jpg') center/cover;
-  border-radius: 16px;
-  opacity: 0.8;
-  z-index: -1;
-}
-.about-text p { margin-bottom: 1.2rem; font-weight: 300; line-height: 1.7; }
-
-/* SERVICES */
-.services { background: var(--navy); }
-.services-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1.5rem;
-  margin-top: 4rem;
-}
-.service {
-  background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(255,255,255,0.06);
-  padding: 2.2rem 1.8rem;
-  border-radius: 18px;
-  transition: all .4s cubic-bezier(.2,.8,.2,1);
-  position: relative;
-  overflow: hidden;
-}
-.service::before {
-  content: '';
-  position: absolute; top:0; left:0; right:0; height: 2px;
-  background: linear-gradient(90deg, transparent, var(--teal-glow), transparent);
-  opacity: 0;
-  transition: opacity .4s;
-}
-.service:hover {
-  background: rgba(26,155,142,0.08);
-  transform: translateY(-8px);
-  border-color: rgba(45,212,191,0.2);
-}
-.service:hover::before { opacity: 1; }
-.service h3 { font-size: 1.6rem; margin-bottom: 0.8rem; }
-.service p { font-size: 0.95rem; opacity: 0.75; font-weight: 300; line-height: 1.6; }
-
-/* VISUAL BREAK */
-.visual-break {
-  height: 50vh;
-  background: url('imagine_images/coast.jpg') center/cover fixed;
-  position: relative;
-}
-.visual-break::after {
-  content: '';
-  position: absolute; inset: 0;
-  background: linear-gradient(to bottom, var(--navy), transparent 20%, transparent 80%, var(--deep));
-}
-
-/* TESTIMONIALS */
-.testimonials { background: var(--deep); }
-.testi-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 2rem;
-  margin-top: 4rem;
-}
-.testi {
-  padding: 2.5rem 2rem;
-  background: rgba(255,255,255,0.02);
-  border-radius: 20px;
-  border: 1px solid rgba(255,255,255,0.05);
-}
-.testi p { font-family: 'Cormorant Garamond', serif; font-size: 1.35rem; line-height: 1.5; margin-bottom: 1.5rem; font-style: italic; }
-.testi .who { font-size: 0.85rem; letter-spacing: 1px; color: var(--teal-glow); text-transform: uppercase; }
-
-/* LOCATION */
-.location {
-  display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
-  gap: 4vw;
-  align-items: center;
-  background: var(--navy);
-}
-.location img {
-  width: 100%;
-  height: 520px;
-  object-fit: cover;
-  border-radius: 24px;
-}
-.info h3 { font-size: 2rem; margin-bottom: 1.5rem; }
-.info p { margin-bottom: 0.8rem; font-weight: 300; }
-.hours { margin: 1.5rem 0; }
-.hours div { display: flex; justify-content: space-between; padding: 0.6rem 0; border-bottom: 1px solid rgba(255,255,255,0.08); font-size: 0.95rem; }
-
-/* CONTACT */
-.contact {
-  background: linear-gradient(135deg, var(--deep), var(--navy));
-  text-align: center;
-}
-.contact-form {
-  max-width: 520px;
-  margin: 3rem auto 0;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-.contact-form input,
-.contact-form textarea,
-.contact-form select {
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.1);
-  padding: 1.1rem 1.3rem;
-  border-radius: 12px;
-  color: white;
-  font-family: inherit;
-  font-size: 1rem;
-}
-.contact-form input:focus,
-.contact-form textarea:focus { outline: none; border-color: var(--teal); }
-.contact-form button {
-  background: var(--teal);
-  color: white;
-  border: none;
-  padding: 1.1rem;
-  border-radius: 100px;
-  font-size: 1rem;
-  font-weight: 500;
-  cursor: pointer;
-  margin-top: 0.5rem;
-  transition: all .3s;
-}
-.contact-form button:hover { background: var(--teal-glow); }
-
-/* FOOTER */
-footer {
-  padding: 4rem 4vw 2rem;
-  text-align: center;
-  border-top: 1px solid rgba(255,255,255,0.06);
-  font-size: 0.85rem;
-  color: var(--muted);
-}
-footer .logo { font-size: 1.4rem; color: white; margin-bottom: 0.5rem; }
-
-/* ANIMATIONS */
-.reveal {
-  opacity: 0;
-  transform: translateY(40px);
-  transition: all 0.9s cubic-bezier(.2,.8,.2,1);
-}
-.reveal.visible { opacity: 1; transform: translateY(0); }
-
-@media (max-width: 900px) {
-  .about, .location, .services-grid, .testi-grid { grid-template-columns: 1fr; }
-  nav ul { display: none; }
-  .hero h1 { font-size: 3.2rem; }
-  section { padding: 5rem 5vw; }
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patch Spine Center | Holistic Chiropractic Care in Ocean Beach, San Diego</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Cormorant Garamond & Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        serif: ['"Cormorant Garamond"', 'serif'],
+                    },
+                    colors: {
+                        ocean: {
+                            50: '#f0f7ff',
+                            100: '#e0effe',
+                            200: '#bae0fd',
+                            300: '#7cc8fb',
+                            400: '#38acf8',
+                            500: '#0e91e9',
+                            600: '#0273c7',
+                            700: '#035ba1',
+                            800: '#074d85',
+                            900: '#0c416e',
+                            950: '#082949',
+                        },
+                        dune: {
+                            50: '#f8fafc',
+                            100: '#f1f5f9',
+                            200: '#e2e8f0',
+                            300: '#cbd5e1',
+                            400: '#94a3b8',
+                            500: '#64748b',
+                        },
+                        terracotta: {
+                            500: '#e06d53',
+                            600: '#c9563c',
+                        }
+                    },
+                    boxShadow: {
+                        'soft': '0 20px 50px -15px rgba(8, 41, 73, 0.08)',
+                        'glow': '0 15px 35px -10px rgba(2, 115, 199, 0.32)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html, body {
+            max-width: 100%;
+            overflow-x: hidden;
+        }
+        /* Subtle grain texture for editorial warmth */
+        .bg-grain {
+            background-image: radial-gradient(rgba(12, 65, 110, 0.04) 1px, transparent 0);
+            background-size: 24px 24px;
+        }
+        @keyframes floatSlow {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-6px); }
+        }
+        .animate-float {
+            animation: floatSlow 5s ease-in-out infinite;
+        }
+    </style>
 </head>
-<body>
+<body class="bg-dune-50 text-ocean-950 antialiased selection:bg-ocean-700 selection:text-white overflow-x-hidden w-full">
 
-<nav id="nav">
-  <div class="logo">Patch Spine <em>Center</em></div>
-  <ul>
-    <li><a href="#about">About</a></li>
-    <li><a href="#services">Care</a></li>
-    <li><a href="#stories">Stories</a></li>
-    <li><a href="#visit">Visit</a></li>
-  </ul>
-  <a href="#contact" class="nav-cta">Reserve</a>
-</nav>
+    <!-- Floating Glass Navigation -->
+    <header class="sticky top-0 z-40 px-3 sm:px-6 lg:px-8 pt-3 sm:pt-4 transition-all w-full">
+        <div class="max-w-7xl mx-auto bg-white/90 backdrop-blur-xl border border-dune-200/90 rounded-2xl shadow-soft px-3.5 sm:px-8">
+            <div class="flex justify-between items-center h-16 sm:h-20 gap-2">
+                <!-- Brand Logo -->
+                <a href="#" class="flex items-center gap-2.5 sm:gap-3.5 group min-w-0">
+                    <div class="w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-gradient-to-br from-ocean-700 to-ocean-950 text-white flex items-center justify-center shadow-sm group-hover:from-ocean-600 group-hover:to-ocean-900 transition-all shrink-0">
+                        <svg class="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 2v20M8 6c2.5 1 5.5 1 8 0M7 10c3 1.2 7 1.2 10 0M7 14c3 1.2 7 1.2 10 0M8 18c2.5 1 5.5 1 8 0"/>
+                        </svg>
+                    </div>
+                    <div class="min-w-0">
+                        <span class="font-serif text-lg sm:text-2xl font-bold tracking-tight text-ocean-950 block leading-none truncate">Patch Spine Center</span>
+                        <span class="text-[9px] sm:text-[10px] uppercase tracking-[0.16em] sm:tracking-[0.22em] text-ocean-600 font-semibold mt-1 block truncate">Dr. Warren M. Patch • Est. 1984</span>
+                    </div>
+                </a>
 
-<header class="hero">
-  <div class="hero-content">
-    <div class="eyebrow">Ocean Beach · Est. 1984</div>
-    <h1>Aligned<br><span>by the tide.</span></h1>
-    <p>Holistic spinal care for those who live by the ocean. Gentle precision. Lasting ease.</p>
-    <div class="btn-row">
-      <a href="#contact" class="btn btn-primary">Begin Your Visit</a>
-      <a href="#services" class="btn btn-ghost">The Approach</a>
+                <!-- Desktop Navigation Links -->
+                <nav class="hidden lg:flex items-center space-x-9 text-[13px] font-semibold tracking-wide text-ocean-800">
+                    <a href="#philosophy" class="hover:text-ocean-600 transition-colors">The Triad of Life</a>
+                    <a href="#services" class="hover:text-ocean-600 transition-colors">Spine Care</a>
+                    <a href="#health-tips" class="hover:text-ocean-600 transition-colors">2-Minute Tips</a>
+                    <a href="#testimonials" class="hover:text-ocean-600 transition-colors">Patient Stories</a>
+                    <a href="#location" class="hover:text-ocean-600 transition-colors">Location</a>
+                </nav>
+
+                <!-- CTA Button & Mobile Menu Trigger -->
+                <div class="flex items-center gap-1.5 sm:gap-3 shrink-0">
+                    <a href="tel:6192243301" class="hidden md:inline-flex items-center gap-1.5 text-xs font-semibold text-ocean-800 hover:text-ocean-600 px-3 py-2 rounded-xl transition-colors">
+                        <i data-lucide="phone" class="w-3.5 h-3.5 text-ocean-600"></i>
+                        (619) 224-3301
+                    </a>
+                    <button onclick="openBookingModal()" class="bg-gradient-to-r from-ocean-700 to-ocean-900 hover:from-ocean-600 hover:to-ocean-800 text-white text-xs sm:text-sm font-semibold px-3.5 sm:px-5 py-2.5 sm:py-3 rounded-xl shadow-glow transition-all flex items-center gap-1.5">
+                        <span>Book<span class="hidden sm:inline"> Visit</span></span>
+                        <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+                    </button>
+                    <button id="mobile-menu-btn" aria-label="Toggle Menu" class="lg:hidden p-2 rounded-xl text-ocean-900 hover:bg-ocean-50 focus:outline-none">
+                        <i data-lucide="menu" class="w-5 h-5"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden lg:hidden max-w-7xl mx-auto mt-2 bg-white/95 backdrop-blur-xl rounded-2xl border border-dune-200 shadow-xl px-4 py-4 space-y-1">
+            <a href="#philosophy" class="mobile-link block px-4 py-3 rounded-xl text-sm font-semibold text-ocean-900 hover:bg-ocean-50">The Triad of Life</a>
+            <a href="#services" class="mobile-link block px-4 py-3 rounded-xl text-sm font-semibold text-ocean-900 hover:bg-ocean-50">Spine Care</a>
+            <a href="#health-tips" class="mobile-link block px-4 py-3 rounded-xl text-sm font-semibold text-ocean-900 hover:bg-ocean-50">2-Minute Health Tips</a>
+            <a href="#testimonials" class="mobile-link block px-4 py-3 rounded-xl text-sm font-semibold text-ocean-900 hover:bg-ocean-50">Patient Stories</a>
+            <a href="#location" class="mobile-link block px-4 py-3 rounded-xl text-sm font-semibold text-ocean-900 hover:bg-ocean-50">Hours & Location</a>
+            <div class="pt-2 border-t border-dune-200">
+                <a href="tel:6192243301" class="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-ocean-50 text-ocean-900 font-semibold text-sm">
+                    <i data-lucide="phone" class="w-4 h-4 text-ocean-600"></i>
+                    Call (619) 224-3301
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Editorial Hero Section -->
+    <section class="relative pt-8 pb-16 sm:pt-12 sm:pb-24 lg:pt-16 lg:pb-28 bg-grain overflow-hidden">
+        <!-- Ambient Organic Gradient Orbs -->
+        <div class="absolute top-10 right-0 w-72 sm:w-[520px] h-72 sm:h-[520px] bg-ocean-200/50 rounded-full blur-3xl -z-10 pointer-events-none"></div>
+        <div class="absolute bottom-0 left-0 w-64 sm:w-[440px] h-64 sm:h-[440px] bg-ocean-300/30 rounded-full blur-3xl -z-10 pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+                
+                <!-- Left Editorial Column -->
+                <div class="lg:col-span-7 space-y-6 sm:space-y-8">
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-ocean-200 shadow-sm text-ocean-800 text-[11px] sm:text-xs font-semibold tracking-wider uppercase max-w-full">
+                        <span class="w-2 h-2 rounded-full bg-ocean-500 animate-pulse shrink-0"></span>
+                        <span class="truncate">1952 Sunset Cliffs Blvd • Ocean Beach</span>
+                    </div>
+                    
+                    <h1 class="font-serif text-4xl sm:text-6xl lg:text-[68px] font-semibold text-ocean-950 leading-[1.06] tracking-tight">
+                        Align Your Spine. <br>
+                        <span class="italic font-normal bg-gradient-to-r from-ocean-600 to-ocean-800 bg-clip-text text-transparent">Restore Your Coastal Vitality.</span>
+                    </h1>
+                    
+                    <p class="text-base sm:text-lg text-ocean-900/80 leading-relaxed max-w-xl font-normal">
+                        For over four decades in Ocean Beach, Dr. Warren M. Patch has blended intuitive chiropractic precision with holistic wellness—helping San Diegans move freely, live pain-free, and thrive naturally.
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 pt-1">
+                        <button onclick="openBookingModal()" class="bg-gradient-to-r from-ocean-700 via-ocean-800 to-ocean-950 hover:from-ocean-600 hover:to-ocean-900 text-white font-semibold px-7 py-4 rounded-2xl shadow-glow transition-all flex items-center justify-center gap-3 text-sm sm:text-base">
+                            <i data-lucide="calendar-check" class="w-5 h-5 text-ocean-200"></i>
+                            Request an Appointment
+                        </button>
+                        <a href="#philosophy" class="bg-white hover:bg-ocean-50 text-ocean-950 border border-ocean-200 font-semibold px-7 py-4 rounded-2xl transition-all flex items-center justify-center gap-2 text-sm sm:text-base">
+                            Explore Our Approach
+                            <i data-lucide="arrow-down-right" class="w-4 h-4 text-ocean-600"></i>
+                        </a>
+                    </div>
+
+                    <!-- Architectural Stat Strip -->
+                    <div class="pt-6 sm:pt-8 border-t border-ocean-200/80 grid grid-cols-3 gap-3 sm:gap-6 max-w-lg">
+                        <div>
+                            <div class="font-serif text-2xl sm:text-4xl font-bold text-ocean-950">1984</div>
+                            <div class="text-[10px] sm:text-xs uppercase tracking-wider text-ocean-600 font-semibold mt-1">Serving OB Since</div>
+                        </div>
+                        <div class="border-x border-ocean-200/80 px-3 sm:px-4">
+                            <div class="font-serif text-2xl sm:text-4xl font-bold text-ocean-950 flex items-center gap-1">
+                                5.0 <i data-lucide="star" class="w-4 h-4 sm:w-5 sm:h-5 fill-ocean-500 text-ocean-500"></i>
+                            </div>
+                            <div class="text-[10px] sm:text-xs uppercase tracking-wider text-ocean-600 font-semibold mt-1">Local Rating</div>
+                        </div>
+                        <div>
+                            <div class="font-serif text-2xl sm:text-4xl font-bold text-ocean-950">3-Fold</div>
+                            <div class="text-[10px] sm:text-xs uppercase tracking-wider text-ocean-600 font-semibold mt-1">Holistic Triad</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Layered Editorial Frame -->
+                <div class="lg:col-span-5 relative px-1 sm:px-0">
+                    <div class="relative mx-auto max-w-md">
+                        <!-- Offset Decorative Backdrop Frame -->
+                        <div class="hidden sm:block absolute -inset-3 rounded-[2.25rem] border border-ocean-500/20 bg-gradient-to-br from-ocean-100 to-ocean-200/50 rotate-2"></div>
+                        
+                        <!-- Main Image Card -->
+                        <div class="relative rounded-[1.75rem] sm:rounded-[2rem] overflow-hidden shadow-2xl border-4 border-white bg-ocean-900 aspect-[4/5]">
+                            <img 
+                                src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=900&q=85" 
+                                alt="Holistic wellness and spinal alignment near Sunset Cliffs, San Diego" 
+                                onerror="this.src='https://placehold.co/800x1000/082949/e0effe?text=Patch+Spine+Center'"
+                                class="w-full h-full object-cover object-center sm:scale-105 hover:scale-100 transition-transform duration-700"
+                            >
+                            <div class="absolute inset-0 bg-gradient-to-t from-ocean-950/90 via-ocean-900/25 to-transparent"></div>
+                            
+                            <!-- Bottom Editorial Quote Overlay -->
+                            <div class="absolute bottom-4 left-4 right-4 sm:bottom-5 sm:left-5 sm:right-5 bg-white/95 backdrop-blur-md p-4 sm:p-5 rounded-2xl shadow-lg border border-ocean-100">
+                                <div class="flex items-center justify-between mb-1.5">
+                                    <div class="flex items-center gap-1 text-ocean-600">
+                                        <i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i>
+                                        <i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i>
+                                        <i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i>
+                                        <i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i>
+                                        <i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i>
+                                    </div>
+                                    <span class="text-[10px] uppercase tracking-widest font-bold text-ocean-600">Verified Patient</span>
+                                </div>
+                                <p class="font-serif italic text-base sm:text-lg text-ocean-950 leading-snug">
+                                    “The best chiropractor I've ever had. Very knowledgeable, intuitive, and a true natural healer.”
+                                </p>
+                                <p class="mt-1.5 text-xs font-semibold text-ocean-700">— Nicky N., San Diego</p>
+                            </div>
+                        </div>
+
+                        <!-- Floating Pill Badge (Desktop only to prevent mobile horizontal slide) -->
+                        <div class="animate-float hidden lg:flex absolute -left-8 top-10 bg-gradient-to-r from-ocean-800 to-ocean-950 text-white px-4 py-3 rounded-2xl shadow-xl items-center gap-3 border border-ocean-600/50">
+                            <div class="w-9 h-9 rounded-xl bg-ocean-500/20 text-ocean-300 flex items-center justify-center">
+                                <i data-lucide="sparkles" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <div class="text-xs font-bold tracking-wide">40+ Years Experience</div>
+                                <div class="text-[11px] text-ocean-200">Sunset Cliffs Blvd Clinic</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Editorial Coastal Banner Strip -->
+    <div class="bg-gradient-to-r from-ocean-950 via-ocean-800 to-ocean-950 text-ocean-100 py-4 border-y border-ocean-700/60">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-wrap items-center justify-center sm:justify-between gap-3 sm:gap-4 text-[11px] sm:text-xs uppercase tracking-[0.18em] sm:tracking-[0.2em] font-semibold">
+            <span class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-ocean-400"></span> Precision Adjustments</span>
+            <span class="hidden sm:inline text-ocean-500">•</span>
+            <span class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-ocean-400"></span> Holistic Nutrition</span>
+            <span class="hidden sm:inline text-ocean-500">•</span>
+            <span class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-ocean-400"></span> Nervous System Balance</span>
+            <span class="hidden md:inline text-ocean-500">•</span>
+            <span class="hidden md:flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-ocean-400"></span> Ocean Beach, CA</span>
+        </div>
     </div>
-  </div>
-</header>
 
-<section id="about" class="about">
-  <div class="about-img reveal">
-    <img src="imagine_images/cliffs.jpg" alt="Sunset Cliffs Ocean Beach">
-  </div>
-  <div class="about-text reveal">
-    <div class="section-label">The Practice</div>
-    <h2>Dr. Warren Patch</h2>
-    <p>Native San Diegan. Lifelong surfer. Licensed chiropractor since 1982. His family practice on Sunset Cliffs Boulevard has quietly cared for Ocean Beach and Point Loma for four decades.</p>
-    <p>Equally at home with infants, athletes, and elders, Dr. Patch works with an intuitive, highly refined touch — informed by science, second-degree Reiki, and decades of hands-on experience. The adjustment is never rushed. The conversation is always real.</p>
-    <p>When the spine moves freely, everything else follows.</p>
-  </div>
-</section>
+    <!-- Bento Grid Section: The Triad of Life -->
+    <section id="philosophy" class="py-16 sm:py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col lg:flex-row lg:items-end justify-between mb-12 sm:mb-16 gap-6">
+                <div class="max-w-2xl">
+                    <span class="text-xs font-bold uppercase tracking-[0.22em] text-ocean-600">Holistic Philosophy</span>
+                    <h2 class="font-serif text-3xl sm:text-5xl font-semibold text-ocean-950 mt-2 leading-tight">
+                        The Triad of Life: <span class="italic font-normal text-ocean-700">Whole-Person Healing</span>
+                    </h2>
+                </div>
+                <p class="text-ocean-900/80 max-w-md text-sm sm:text-base leading-relaxed">
+                    Lasting relief happens when structure, biochemistry, and mindset work in harmony. Dr. Patch addresses all three pillars in every care plan.
+                </p>
+            </div>
 
-<section id="services" class="services">
-  <div class="section-label">Care</div>
-  <h2>Whole-person<br>spinal work.</h2>
-  <p class="lead">Not just the back. The entire living system — posture, movement, recovery, and daily life by the water.</p>
-  <div class="services-grid">
-    <div class="service reveal">
-      <h3>Precision Adjustments</h3>
-      <p>Manual, instrument, and drop-table techniques selected for your body that day. Never formulaic.</p>
+            <!-- Asymmetric Bento Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <!-- Featured Pillar 1 (Large Blue Gradient Card) -->
+                <div class="lg:col-span-6 bg-gradient-to-br from-ocean-800 via-ocean-900 to-ocean-950 text-white rounded-[1.75rem] sm:rounded-[2rem] p-7 sm:p-11 flex flex-col justify-between relative overflow-hidden group shadow-soft">
+                    <div class="absolute top-0 right-0 w-64 h-64 bg-ocean-500/20 rounded-full blur-3xl pointer-events-none"></div>
+                    <div class="relative z-10">
+                        <div class="flex items-center justify-between mb-6 sm:mb-8">
+                            <span class="px-3.5 py-1 rounded-full bg-white/10 text-ocean-100 text-xs font-semibold tracking-wider uppercase border border-white/15">Pillar 01</span>
+                            <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-2xl bg-gradient-to-br from-ocean-400 to-ocean-600 text-white flex items-center justify-center shadow-lg">
+                                <i data-lucide="activity" class="w-5 h-5 sm:w-6 sm:h-6"></i>
+                            </div>
+                        </div>
+                        <h3 class="font-serif text-2xl sm:text-4xl font-semibold mb-4">Physical Alignment & Biomechanics</h3>
+                        <p class="text-ocean-100/90 text-sm sm:text-base leading-relaxed mb-8">
+                            Gentle, intuitive spinal and extremity adjustments release nerve interference, restore natural joint motion, and relieve deeply held muscular tension—allowing your body to heal itself efficiently.
+                        </p>
+                    </div>
+                    <div class="relative z-10 grid grid-cols-1 sm:grid-cols-2 gap-3 pt-6 border-t border-white/15 text-xs font-semibold text-ocean-100">
+                        <div class="flex items-center gap-2">
+                            <i data-lucide="check" class="w-4 h-4 text-ocean-300"></i>
+                            Subluxation Correction
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <i data-lucide="check" class="w-4 h-4 text-ocean-300"></i>
+                            Postural Restoration
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Stack: Pillars 2 & 3 -->
+                <div class="lg:col-span-6 flex flex-col gap-6">
+                    <!-- Pillar 2 -->
+                    <div class="flex-1 bg-gradient-to-br from-ocean-50 to-white rounded-[1.75rem] sm:rounded-[2rem] p-7 sm:p-9 border border-ocean-200/80 hover:border-ocean-400 transition-all">
+                        <div class="flex items-start justify-between gap-4 mb-4">
+                            <div>
+                                <span class="text-xs font-bold uppercase tracking-widest text-ocean-600">Pillar 02</span>
+                                <h3 class="font-serif text-2xl sm:text-3xl font-semibold text-ocean-950 mt-1">Chemical & Nutritional Balance</h3>
+                            </div>
+                            <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-2xl bg-gradient-to-br from-ocean-600 to-ocean-800 text-white flex items-center justify-center shadow-sm shrink-0">
+                                <i data-lucide="droplets" class="w-5 h-5 sm:w-6 sm:h-6"></i>
+                            </div>
+                        </div>
+                        <p class="text-ocean-900/80 text-sm leading-relaxed">
+                            Tissue recovery starts at the cellular level. We empower you with practical anti-inflammatory nutrition, disc hydration habits, and whole-food guidance that accelerate spinal healing.
+                        </p>
+                    </div>
+
+                    <!-- Pillar 3 -->
+                    <div class="flex-1 bg-gradient-to-br from-ocean-100/70 to-ocean-50/60 rounded-[1.75rem] sm:rounded-[2rem] p-7 sm:p-9 border border-ocean-200/80 hover:border-ocean-400 transition-all">
+                        <div class="flex items-start justify-between gap-4 mb-4">
+                            <div>
+                                <span class="text-xs font-bold uppercase tracking-widest text-ocean-700">Pillar 03</span>
+                                <h3 class="font-serif text-2xl sm:text-3xl font-semibold text-ocean-950 mt-1">Mental Clarity & Positivity</h3>
+                            </div>
+                            <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-2xl bg-gradient-to-br from-ocean-500 to-ocean-700 text-white flex items-center justify-center shadow-sm shrink-0">
+                                <i data-lucide="sun" class="w-5 h-5 sm:w-6 sm:h-6"></i>
+                            </div>
+                        </div>
+                        <p class="text-ocean-900/80 text-sm leading-relaxed">
+                            Emotional stress tightens the spine and drains vitality. Cultivating nervous system calm, restorative breathing, and an optimistic outlook builds lasting physical resilience.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Editorial Numbered Index: Spine Care Services -->
+    <section id="services" class="py-16 sm:py-24 bg-gradient-to-b from-ocean-50/70 to-dune-50 border-y border-ocean-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
+                <span class="text-xs font-bold uppercase tracking-[0.22em] text-ocean-600">Clinical Specialties</span>
+                <h2 class="font-serif text-3xl sm:text-5xl font-semibold text-ocean-950 mt-2">Targeted Spine & Wellness Care</h2>
+                <p class="text-ocean-900/80 mt-4 text-sm sm:text-base">
+                    Personalized treatments tailored for Ocean Beach surfers, active professionals, families, and seniors.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+                <!-- Card 01 -->
+                <div class="bg-white rounded-3xl p-7 sm:p-8 border border-ocean-100 shadow-sm hover:shadow-soft hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-5">
+                            <span class="font-serif italic text-3xl text-ocean-300 font-semibold">01</span>
+                            <span class="w-10 h-10 rounded-xl bg-gradient-to-br from-ocean-50 to-ocean-100 text-ocean-700 flex items-center justify-center">
+                                <i data-lucide="sparkles" class="w-5 h-5"></i>
+                            </span>
+                        </div>
+                        <h3 class="font-serif text-2xl font-semibold text-ocean-950 mb-3">Chiropractic Adjustments</h3>
+                        <p class="text-ocean-900/75 text-sm leading-relaxed">
+                            Gentle, accurate spinal adjustments to restore alignment, improve joint mobility, and optimize nervous system function.
+                        </p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-ocean-50 text-xs font-semibold text-ocean-700 flex items-center gap-1.5">
+                        <span>Core Structural Care</span>
+                    </div>
+                </div>
+
+                <!-- Card 02 -->
+                <div class="bg-white rounded-3xl p-7 sm:p-8 border border-ocean-100 shadow-sm hover:shadow-soft hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-5">
+                            <span class="font-serif italic text-3xl text-ocean-300 font-semibold">02</span>
+                            <span class="w-10 h-10 rounded-xl bg-gradient-to-br from-ocean-50 to-ocean-100 text-ocean-700 flex items-center justify-center">
+                                <i data-lucide="shield-check" class="w-5 h-5"></i>
+                            </span>
+                        </div>
+                        <h3 class="font-serif text-2xl font-semibold text-ocean-950 mb-3">Back, Neck & Sciatica Relief</h3>
+                        <p class="text-ocean-900/75 text-sm leading-relaxed">
+                            Natural, drug-free relief for acute lower back pain, radiating sciatic nerve irritation, neck stiffness, and tension headaches.
+                        </p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-ocean-50 text-xs font-semibold text-ocean-700 flex items-center gap-1.5">
+                        <span>Acute & Chronic Pain</span>
+                    </div>
+                </div>
+
+                <!-- Card 03 -->
+                <div class="bg-white rounded-3xl p-7 sm:p-8 border border-ocean-100 shadow-sm hover:shadow-soft hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-5">
+                            <span class="font-serif italic text-3xl text-ocean-300 font-semibold">03</span>
+                            <span class="w-10 h-10 rounded-xl bg-gradient-to-br from-ocean-50 to-ocean-100 text-ocean-700 flex items-center justify-center">
+                                <i data-lucide="waves" class="w-5 h-5"></i>
+                            </span>
+                        </div>
+                        <h3 class="font-serif text-2xl font-semibold text-ocean-950 mb-3">Surf & Sports Recovery</h3>
+                        <p class="text-ocean-900/75 text-sm leading-relaxed">
+                            Keeping Sunset Cliffs surfers, runners, and athletes balanced with shoulder, hip, and thoracic spine mobility therapy.
+                        </p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-ocean-50 text-xs font-semibold text-ocean-700 flex items-center gap-1.5">
+                        <span>Active Lifestyle Support</span>
+                    </div>
+                </div>
+
+                <!-- Card 04 -->
+                <div class="bg-white rounded-3xl p-7 sm:p-8 border border-ocean-100 shadow-sm hover:shadow-soft hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-5">
+                            <span class="font-serif italic text-3xl text-ocean-300 font-semibold">04</span>
+                            <span class="w-10 h-10 rounded-xl bg-gradient-to-br from-ocean-50 to-ocean-100 text-ocean-700 flex items-center justify-center">
+                                <i data-lucide="heart-handshake" class="w-5 h-5"></i>
+                            </span>
+                        </div>
+                        <h3 class="font-serif text-2xl font-semibold text-ocean-950 mb-3">Myofascial & Soft Tissue</h3>
+                        <p class="text-ocean-900/75 text-sm leading-relaxed">
+                            Targeted muscle release paired with chiropractic care to calm spasms, boost blood flow, and help adjustments hold longer.
+                        </p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-ocean-50 text-xs font-semibold text-ocean-700 flex items-center gap-1.5">
+                        <span>Deep Muscular Release</span>
+                    </div>
+                </div>
+
+                <!-- Card 05 -->
+                <div class="bg-white rounded-3xl p-7 sm:p-8 border border-ocean-100 shadow-sm hover:shadow-soft hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-5">
+                            <span class="font-serif italic text-3xl text-ocean-300 font-semibold">05</span>
+                            <span class="w-10 h-10 rounded-xl bg-gradient-to-br from-ocean-50 to-ocean-100 text-ocean-700 flex items-center justify-center">
+                                <i data-lucide="car" class="w-5 h-5"></i>
+                            </span>
+                        </div>
+                        <h3 class="font-serif text-2xl font-semibold text-ocean-950 mb-3">Auto & Whiplash Rehab</h3>
+                        <p class="text-ocean-900/75 text-sm leading-relaxed">
+                            Comprehensive assessment and gentle rehabilitative care following auto collisions or sudden impact injuries.
+                        </p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-ocean-50 text-xs font-semibold text-ocean-700 flex items-center gap-1.5">
+                        <span>Injury Recovery</span>
+                    </div>
+                </div>
+
+                <!-- Card 06 -->
+                <div class="bg-white rounded-3xl p-7 sm:p-8 border border-ocean-100 shadow-sm hover:shadow-soft hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-5">
+                            <span class="font-serif italic text-3xl text-ocean-300 font-semibold">06</span>
+                            <span class="w-10 h-10 rounded-xl bg-gradient-to-br from-ocean-50 to-ocean-100 text-ocean-700 flex items-center justify-center">
+                                <i data-lucide="compass" class="w-5 h-5"></i>
+                            </span>
+                        </div>
+                        <h3 class="font-serif text-2xl font-semibold text-ocean-950 mb-3">Preventative Tune-Ups</h3>
+                        <p class="text-ocean-900/75 text-sm leading-relaxed">
+                            Routine spinal maintenance and ergonomic guidance designed to prevent stiffness before pain ever interrupts your life.
+                        </p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-ocean-50 text-xs font-semibold text-ocean-700 flex items-center gap-1.5">
+                        <span>Long-Term Vitality</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive 2-Minute Health Tips Section -->
+    <section id="health-tips" class="py-16 sm:py-24 bg-gradient-to-br from-ocean-950 via-ocean-900 to-ocean-950 text-white relative overflow-hidden">
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(56,172,248,0.22),transparent_55%)] pointer-events-none"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+                <div class="lg:col-span-5 space-y-5 sm:space-y-6">
+                    <span class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/10 border border-white/15 text-ocean-200 text-xs font-semibold uppercase tracking-widest">
+                        <i data-lucide="clock" class="w-3.5 h-3.5 text-ocean-300"></i>
+                        Daily Wellness Rituals
+                    </span>
+                    <h2 class="font-serif text-3xl sm:text-5xl font-semibold leading-tight">
+                        2-Minute Health Tips <span class="italic font-normal text-ocean-300">by Dr. Patch</span>
+                    </h2>
+                    <p class="text-ocean-100/85 text-sm sm:text-base leading-relaxed">
+                        Extraordinary spinal health is built two minutes at a time. Select a daily ritual below to explore Dr. Patch's favorite posture and recovery habits.
+                    </p>
+                    
+                    <!-- Interactive Pill Switchers -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3 pt-2" id="tip-tabs">
+                        <button onclick="selectTip(0)" class="tip-tab-btn active px-4 py-3.5 rounded-2xl text-xs sm:text-sm font-semibold transition-all bg-white text-ocean-950 shadow-md text-left flex items-center justify-between">
+                            <span>01. Morning Reset</span>
+                            <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                        </button>
+                        <button onclick="selectTip(1)" class="tip-tab-btn px-4 py-3.5 rounded-2xl text-xs sm:text-sm font-semibold transition-all bg-white/10 border border-white/15 text-ocean-100 hover:bg-white/20 text-left flex items-center justify-between">
+                            <span>02. Desk Posture</span>
+                            <i data-lucide="chevron-right" class="w-4 h-4 opacity-50"></i>
+                        </button>
+                        <button onclick="selectTip(2)" class="tip-tab-btn px-4 py-3.5 rounded-2xl text-xs sm:text-sm font-semibold transition-all bg-white/10 border border-white/15 text-ocean-100 hover:bg-white/20 text-left flex items-center justify-between">
+                            <span>03. Disc Hydration</span>
+                            <i data-lucide="chevron-right" class="w-4 h-4 opacity-50"></i>
+                        </button>
+                        <button onclick="selectTip(3)" class="tip-tab-btn px-4 py-3.5 rounded-2xl text-xs sm:text-sm font-semibold transition-all bg-white/10 border border-white/15 text-ocean-100 hover:bg-white/20 text-left flex items-center justify-between">
+                            <span>04. Sleep Setup</span>
+                            <i data-lucide="chevron-right" class="w-4 h-4 opacity-50"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Elevated Tip Display Card -->
+                <div class="lg:col-span-7">
+                    <div id="tip-content-card" class="bg-white/10 border border-white/15 rounded-[1.75rem] sm:rounded-[2rem] p-6 sm:p-12 backdrop-blur-md shadow-2xl transition-all">
+                        <div class="flex items-center justify-between mb-5 sm:mb-6">
+                            <span id="tip-badge" class="text-xs font-bold uppercase tracking-[0.2em] text-ocean-300">Ritual 01 • 2 Minutes</span>
+                            <span class="w-11 h-11 sm:w-12 sm:h-12 rounded-2xl bg-ocean-800 border border-ocean-600 flex items-center justify-center text-ocean-200">
+                                <i id="tip-icon" data-lucide="sunrise" class="w-5 h-5 sm:w-6 sm:h-6"></i>
+                            </span>
+                        </div>
+                        <h3 id="tip-title" class="font-serif text-2xl sm:text-4xl font-semibold text-white mb-4 leading-snug">
+                            The 2-Minute Morning Spinal Wake-Up
+                        </h3>
+                        <p id="tip-body" class="text-ocean-100 leading-relaxed text-sm sm:text-base mb-6 sm:mb-8">
+                            Before checking your phone, stand tall by a window, take 5 slow diaphragmatic breaths, and perform gentle pelvic tilts and shoulder rolls. This pumps fresh synovial fluid into your spinal joints after hours of sleep.
+                        </p>
+                        <div class="bg-ocean-950/70 rounded-2xl p-4 sm:p-5 border border-white/10 flex items-start gap-3">
+                            <i data-lucide="sparkles" class="w-5 h-5 text-ocean-300 shrink-0 mt-0.5"></i>
+                            <p id="tip-pro" class="text-xs sm:text-sm text-ocean-100 leading-relaxed">
+                                <strong class="text-white">Dr. Patch's Note:</strong> Pair this with a full glass of room-temperature water before coffee to rehydrate your spinal discs.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Editorial Testimonials & Patient Dedication -->
+    <section id="testimonials" class="py-16 sm:py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
+                <span class="text-xs font-bold uppercase tracking-[0.22em] text-ocean-600">Community Voices</span>
+                <h2 class="font-serif text-3xl sm:text-5xl font-semibold text-ocean-950 mt-2">Trusted Across Generations</h2>
+            </div>
+
+            <!-- Featured Editorial Poem Dedication -->
+            <div class="bg-gradient-to-br from-ocean-50 via-white to-ocean-100/70 rounded-[1.75rem] sm:rounded-[2.25rem] p-7 sm:p-14 border border-ocean-200/80 mb-10 sm:mb-14 relative overflow-hidden">
+                <div class="max-w-3xl mx-auto text-center relative z-10">
+                    <span class="inline-block text-xs font-bold uppercase tracking-[0.22em] text-ocean-600 mb-4">Patient Dedication</span>
+                    <blockquote class="font-serif italic text-xl sm:text-3xl text-ocean-950 leading-relaxed">
+                        “What a blessing it is to know this man with the loving heart and healing hands; To those who suffer and cry with pain, he helps them smile and laugh again; Thanks is not enough — mere words can't express what it means to regain health and happiness.”
+                    </blockquote>
+                    <div class="mt-6 text-xs uppercase tracking-widest font-bold text-ocean-800">
+                        — JoAnn Price • Ocean Beach Patient
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3-Column Reviews -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-dune-50 p-7 sm:p-8 rounded-3xl border border-ocean-100 flex flex-col justify-between">
+                    <div>
+                        <div class="flex text-ocean-600 gap-1 mb-5">
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        </div>
+                        <p class="font-serif text-xl text-ocean-950 leading-relaxed mb-6">
+                            “I've been seeing Dr. Patch since he opened his office in 1984. His chiropractic skills are unparalleled—truly the best I've ever experienced.”
+                        </p>
+                    </div>
+                    <div class="flex items-center gap-3 pt-4 border-t border-ocean-100">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-ocean-700 to-ocean-950 text-white flex items-center justify-center font-serif font-bold text-sm">GG</div>
+                        <div>
+                            <div class="text-sm font-bold text-ocean-950">Gina George</div>
+                            <div class="text-xs text-ocean-600">Patient Since 1984</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-dune-50 p-7 sm:p-8 rounded-3xl border border-ocean-100 flex flex-col justify-between">
+                    <div>
+                        <div class="flex text-ocean-600 gap-1 mb-5">
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        </div>
+                        <p class="font-serif text-xl text-ocean-950 leading-relaxed mb-6">
+                            “My husband and I are long-time patients of Dr. Patch and highly recommend anyone looking for fast relief and ongoing maintenance care.”
+                        </p>
+                    </div>
+                    <div class="flex items-center gap-3 pt-4 border-t border-ocean-100">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-ocean-700 to-ocean-950 text-white flex items-center justify-center font-serif font-bold text-sm">CG</div>
+                        <div>
+                            <div class="text-sm font-bold text-ocean-950">Carol Greene</div>
+                            <div class="text-xs text-ocean-600">San Diego Patient</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-dune-50 p-7 sm:p-8 rounded-3xl border border-ocean-100 flex flex-col justify-between">
+                    <div>
+                        <div class="flex text-ocean-600 gap-1 mb-5">
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        </div>
+                        <p class="font-serif text-xl text-ocean-950 leading-relaxed mb-6">
+                            “Holy moly! In simple terms, he is amazing. After my first chiropractic adjustment with Dr. Patch I felt immediate relief and mobility.”
+                        </p>
+                    </div>
+                    <div class="flex items-center gap-3 pt-4 border-t border-ocean-100">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-ocean-700 to-ocean-950 text-white flex items-center justify-center font-serif font-bold text-sm">MS</div>
+                        <div>
+                            <div class="text-sm font-bold text-ocean-950">Max Schwede</div>
+                            <div class="text-xs text-ocean-600">Ocean Beach Resident</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Location, Hours & Interactive Map Section -->
+    <section id="location" class="py-16 sm:py-24 bg-gradient-to-b from-ocean-50/70 to-dune-100/70 border-t border-ocean-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+                
+                <!-- Contact & Hours Card -->
+                <div class="lg:col-span-5 bg-white rounded-[1.75rem] sm:rounded-[2rem] p-7 sm:p-10 border border-ocean-100 shadow-soft flex flex-col justify-between">
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-[0.22em] text-ocean-600">Visit Our Practice</span>
+                        <h2 class="font-serif text-3xl sm:text-4xl font-semibold text-ocean-950 mt-2 mb-8">Sunset Cliffs Clinic</h2>
+                        
+                        <div class="space-y-6">
+                            <!-- Address -->
+                            <div class="flex items-start gap-4">
+                                <div class="w-11 h-11 rounded-2xl bg-ocean-50 text-ocean-700 flex items-center justify-center shrink-0">
+                                    <i data-lucide="map-pin" class="w-5 h-5"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-ocean-950 text-xs uppercase tracking-wider">Location</h4>
+                                    <p class="text-ocean-900 text-sm mt-1 leading-relaxed">
+                                        1952 Sunset Cliffs Blvd<br>
+                                        San Diego, CA 92107
+                                    </p>
+                                    <button onclick="copyAddress()" class="mt-2 inline-flex items-center gap-1.5 text-xs font-bold text-ocean-600 hover:text-ocean-800">
+                                        <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                                        <span>Copy Street Address</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Direct Contact -->
+                            <div class="flex items-start gap-4">
+                                <div class="w-11 h-11 rounded-2xl bg-ocean-50 text-ocean-700 flex items-center justify-center shrink-0">
+                                    <i data-lucide="phone" class="w-5 h-5"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-ocean-950 text-xs uppercase tracking-wider">Phone & Email</h4>
+                                    <p class="text-ocean-900 text-sm mt-1">
+                                        <a href="tel:6192243301" class="font-bold text-ocean-950 hover:text-ocean-600 transition-colors">(619) 224-3301</a>
+                                    </p>
+                                    <p class="text-ocean-700 text-sm">
+                                        <a href="mailto:drpatch@gmail.com" class="hover:underline">drpatch@gmail.com</a>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Office Hours -->
+                            <div class="flex items-start gap-4">
+                                <div class="w-11 h-11 rounded-2xl bg-ocean-50 text-ocean-700 flex items-center justify-center shrink-0">
+                                    <i data-lucide="clock" class="w-5 h-5"></i>
+                                </div>
+                                <div class="w-full">
+                                    <div class="flex items-center justify-between gap-2 flex-wrap">
+                                        <h4 class="font-bold text-ocean-950 text-xs uppercase tracking-wider">Clinic Hours</h4>
+                                        <span id="clinic-status-badge" class="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-ocean-50 text-ocean-800">Checking...</span>
+                                    </div>
+                                    <ul class="mt-2.5 space-y-2 text-sm text-ocean-800">
+                                        <li class="flex justify-between gap-2">
+                                            <span>Monday</span>
+                                            <span class="font-semibold text-ocean-950">9am–12pm, 2–6pm</span>
+                                        </li>
+                                        <li class="flex justify-between gap-2">
+                                            <span>Tue – Thu</span>
+                                            <span class="font-semibold text-ocean-950">9am–1pm, 2–6pm</span>
+                                        </li>
+                                        <li class="flex justify-between gap-2 text-ocean-500">
+                                            <span>Fri – Sun</span>
+                                            <span>Closed</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-8 mt-8 border-t border-ocean-100 flex flex-col sm:flex-row gap-3">
+                        <button onclick="openBookingModal()" class="flex-1 bg-gradient-to-r from-ocean-700 to-ocean-900 hover:from-ocean-600 hover:to-ocean-800 text-white text-sm font-semibold py-3.5 px-5 rounded-xl transition-all text-center shadow-sm">
+                            Book Appointment
+                        </button>
+                        <a href="https://www.google.com/maps/search/?api=1&query=Patch+Spine+Center+1952+Sunset+Cliffs+Blvd+San+Diego+CA+92107" target="_blank" rel="noopener noreferrer" class="flex-1 bg-ocean-50 hover:bg-ocean-100 text-ocean-950 text-sm font-semibold py-3.5 px-5 rounded-xl transition-all text-center flex items-center justify-center gap-1.5">
+                            <span>Directions</span>
+                            <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Map Card -->
+                <div class="lg:col-span-7 rounded-[1.75rem] sm:rounded-[2rem] overflow-hidden border border-ocean-100 shadow-soft bg-ocean-100 relative min-h-[360px] sm:min-h-[420px]">
+                    <iframe 
+                        title="Patch Spine Center Location Map"
+                        src="https://www.openstreetmap.org/export/embed.html?bbox=-117.2535%2C32.7435%2C-117.2385%2C32.7525&layer=mapnik&marker=32.7483%2C-117.2459" 
+                        class="w-full h-full border-0 min-h-[380px] sm:min-h-[440px]"
+                        loading="lazy">
+                    </iframe>
+                    <div class="absolute bottom-4 left-4 right-4 sm:bottom-5 sm:left-5 sm:right-auto bg-white/95 backdrop-blur-md px-4 py-3 rounded-2xl shadow-lg border border-ocean-100 flex items-center gap-3">
+                        <div class="w-3 h-3 rounded-full bg-ocean-600 shrink-0"></div>
+                        <div class="text-xs">
+                            <span class="font-bold text-ocean-950 block">Patch Spine Center</span>
+                            <span class="text-ocean-700">1952 Sunset Cliffs Blvd • Ocean Beach, San Diego</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Editorial Footer -->
+    <footer class="bg-gradient-to-b from-ocean-900 to-ocean-950 text-ocean-200 py-14 sm:py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 sm:gap-10 pb-10 sm:pb-12 border-b border-white/10">
+                <div class="md:col-span-6 space-y-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-white/10 text-white flex items-center justify-center">
+                            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 2v20M8 6c2.5 1 5.5 1 8 0M7 10c3 1.2 7 1.2 10 0M7 14c3 1.2 7 1.2 10 0M8 18c2.5 1 5.5 1 8 0"/>
+                            </svg>
+                        </div>
+                        <span class="font-serif text-2xl font-bold text-white">Patch Spine Center</span>
+                    </div>
+                    <p class="text-sm text-ocean-200/85 max-w-md leading-relaxed">
+                        Holistic, natural chiropractic care in Ocean Beach, San Diego. Helping patients restore spinal alignment, relieve pain, and live vibrantly since 1984.
+                    </p>
+                </div>
+
+                <div class="md:col-span-3">
+                    <h4 class="text-white font-bold text-xs uppercase tracking-[0.2em] mb-4">Navigation</h4>
+                    <ul class="space-y-2.5 text-sm">
+                        <li><a href="#philosophy" class="hover:text-white transition-colors">The Triad of Life</a></li>
+                        <li><a href="#services" class="hover:text-white transition-colors">Spine Care</a></li>
+                        <li><a href="#health-tips" class="hover:text-white transition-colors">2-Minute Tips</a></li>
+                        <li><a href="#testimonials" class="hover:text-white transition-colors">Testimonials</a></li>
+                    </ul>
+                </div>
+
+                <div class="md:col-span-3">
+                    <h4 class="text-white font-bold text-xs uppercase tracking-[0.2em] mb-4">Clinic</h4>
+                    <ul class="space-y-2.5 text-sm">
+                        <li>1952 Sunset Cliffs Blvd</li>
+                        <li>San Diego, CA 92107</li>
+                        <li><a href="tel:6192243301" class="text-white font-semibold hover:text-ocean-300 transition-colors">(619) 224-3301</a></li>
+                        <li><a href="mailto:drpatch@gmail.com" class="hover:text-white transition-colors">drpatch@gmail.com</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="pt-8 flex flex-col sm:flex-row justify-between items-center gap-3 text-xs text-ocean-300 text-center sm:text-left">
+                <p>© <span id="current-year">2026</span> Dr. Warren M. Patch • Patch Spine Center. All Rights Reserved.</p>
+                <p>Ocean Beach, San Diego • Holistic Chiropractic Wellness</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Appointment Booking Modal -->
+    <div id="booking-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-ocean-950/75 backdrop-blur-sm">
+        <div class="bg-white rounded-[1.75rem] sm:rounded-[2rem] max-w-lg w-full p-6 sm:p-9 shadow-2xl border border-ocean-100 relative max-h-[90vh] overflow-y-auto">
+            <button onclick="closeBookingModal()" class="absolute top-5 right-5 p-2 rounded-full text-ocean-500 hover:text-ocean-950 hover:bg-ocean-50 transition-colors">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+
+            <div id="booking-form-container">
+                <span class="text-xs font-bold uppercase tracking-[0.2em] text-ocean-600">Ocean Beach Clinic</span>
+                <h3 class="font-serif text-3xl font-semibold text-ocean-950 mt-1">Request a Visit</h3>
+                <p class="text-sm text-ocean-800 mt-1 mb-6">
+                    Select your preferred day below, or call our front desk directly at <a href="tel:6192243301" class="font-bold text-ocean-950 underline">(619) 224-3301</a>.
+                </p>
+
+                <form id="appointment-form" onsubmit="handleBookingSubmit(event)" class="space-y-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold text-ocean-900 uppercase tracking-wider mb-1.5">Full Name *</label>
+                            <input type="text" required placeholder="Jane Doe" class="w-full px-4 py-3 rounded-xl border border-ocean-200 focus:outline-none focus:ring-2 focus:ring-ocean-600 text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-ocean-900 uppercase tracking-wider mb-1.5">Phone Number *</label>
+                            <input type="tel" required placeholder="(619) 555-0199" class="w-full px-4 py-3 rounded-xl border border-ocean-200 focus:outline-none focus:ring-2 focus:ring-ocean-600 text-sm">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold text-ocean-900 uppercase tracking-wider mb-1.5">Preferred Day</label>
+                            <select class="w-full px-4 py-3 rounded-xl border border-ocean-200 focus:outline-none focus:ring-2 focus:ring-ocean-600 text-sm bg-white">
+                                <option>Monday (9am–12pm, 2–6pm)</option>
+                                <option>Tuesday (9am–1pm, 2–6pm)</option>
+                                <option>Wednesday (9am–1pm, 2–6pm)</option>
+                                <option>Thursday (9am–1pm, 2–6pm)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-ocean-900 uppercase tracking-wider mb-1.5">Visit Type</label>
+                            <select class="w-full px-4 py-3 rounded-xl border border-ocean-200 focus:outline-none focus:ring-2 focus:ring-ocean-600 text-sm bg-white">
+                                <option>New Patient Consultation</option>
+                                <option>Returning Adjustment</option>
+                                <option>Acute Pain / Injury Relief</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-ocean-900 uppercase tracking-wider mb-1.5">Notes or Symptoms (Optional)</label>
+                        <textarea rows="3" placeholder="Briefly describe any neck, back, or joint discomfort..." class="w-full px-4 py-3 rounded-xl border border-ocean-200 focus:outline-none focus:ring-2 focus:ring-ocean-600 text-sm"></textarea>
+                    </div>
+
+                    <button type="submit" class="w-full bg-gradient-to-r from-ocean-700 to-ocean-900 hover:from-ocean-600 hover:to-ocean-800 text-white font-semibold py-3.5 rounded-xl shadow-glow transition-all text-sm">
+                        Send Appointment Request
+                    </button>
+                </form>
+            </div>
+
+            <!-- Confirmation State -->
+            <div id="booking-success-state" class="hidden text-center py-6 space-y-4">
+                <div class="w-16 h-16 rounded-full bg-ocean-100 text-ocean-700 flex items-center justify-center mx-auto">
+                    <i data-lucide="check" class="w-8 h-8"></i>
+                </div>
+                <h3 class="font-serif text-3xl font-semibold text-ocean-950">Request Received</h3>
+                <p class="text-sm text-ocean-800 max-w-sm mx-auto leading-relaxed">
+                    Thank you for reaching out to Patch Spine Center. Our Ocean Beach front desk will call you shortly to confirm your appointment time.
+                </p>
+                <div class="pt-4">
+                    <button onclick="closeBookingModal()" class="bg-gradient-to-r from-ocean-700 to-ocean-900 text-white text-sm font-semibold px-7 py-3 rounded-xl hover:from-ocean-600 hover:to-ocean-800 transition-colors">
+                        Done
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="service reveal">
-      <h3>All Ages</h3>
-      <p>From newborns to active seniors. Gentle, effective, and deeply respectful of each stage of life.</p>
-    </div>
-    <div class="service reveal">
-      <h3>Lifestyle Alignment</h3>
-      <p>Posture, movement patterns, and practical guidance so the care continues after you leave.</p>
-    </div>
-    <div class="service reveal">
-      <h3>Active Recovery</h3>
-      <p>Support for surfers, runners, and anyone whose body is shaped by the coast and its rhythms.</p>
-    </div>
-  </div>
-</section>
 
-<div class="visual-break"></div>
-
-<section id="stories" class="testimonials">
-  <div class="section-label">Stories</div>
-  <h2>In their words.</h2>
-  <div class="testi-grid">
-    <div class="testi reveal">
-      <p>“He has kept me going all these years. I do all the exercises he taught me every day.”</p>
-      <div class="who">Margaret · 100th Birthday</div>
+    <!-- Toast Notification -->
+    <div id="toast-notification" class="fixed bottom-4 left-4 right-4 sm:left-auto sm:right-5 sm:bottom-5 z-50 transform translate-y-24 opacity-0 transition-all duration-300 bg-ocean-950 text-white px-5 py-3.5 rounded-2xl shadow-xl border border-ocean-700 text-xs sm:text-sm font-medium flex items-center gap-2.5">
+        <i data-lucide="check-circle" class="w-4 h-4 text-ocean-300 shrink-0"></i>
+        <span id="toast-message">Address copied to clipboard!</span>
     </div>
-    <div class="testi reveal">
-      <p>“An instinctive ability to find the problem and fix it in a completely gentle and painless manner.”</p>
-      <div class="who">Long-time Patient</div>
-    </div>
-    <div class="testi reveal">
-      <p>“Whenever my active life misaligns me, I know I can count on Dr. Patch.”</p>
-      <div class="who">Scott Lembach</div>
-    </div>
-  </div>
-</section>
 
-<section id="visit" class="location">
-  <img src="imagine_images/pier.jpg" alt="Ocean Beach Pier" class="reveal">
-  <div class="info reveal">
-    <div class="section-label">Visit</div>
-    <h3>Sunset Cliffs Boulevard</h3>
-    <p>1952 Sunset Cliffs Blvd<br>Ocean Beach, San Diego<br>CA 92107</p>
-    <p style="margin-top:1.2rem;">(619) 224-3301<br>drpatch@gmail.com</p>
-    <div class="hours">
-      <div><span>Monday</span><span>9–12 · 2–6</span></div>
-      <div><span>Tue – Thu</span><span>9–1 · 2–6</span></div>
-      <div><span>Friday – Sunday</span><span>Closed</span></div>
-    </div>
-    <p style="font-size:0.9rem; opacity:0.7;">Please call to schedule. Street parking; note sweeping days.</p>
-  </div>
-</section>
+    <script>
+        lucide.createIcons();
+        document.getElementById('current-year').textContent = new Date().getFullYear();
 
-<section id="contact" class="contact">
-  <div class="section-label">Begin</div>
-  <h2>Reserve your time.</h2>
-  <p class="lead" style="margin: 0 auto;">New patients are given space and attention. Reach out and we’ll find a time that works.</p>
-  <form class="contact-form" action="mailto:drpatch@gmail.com" method="post" enctype="text/plain">
-    <input type="text" name="name" placeholder="Name" required>
-    <input type="email" name="email" placeholder="Email" required>
-    <input type="tel" name="phone" placeholder="Phone">
-    <select name="type">
-      <option>New patient</option>
-      <option>Returning</option>
-      <option>Question</option>
-    </select>
-    <textarea name="message" rows="4" placeholder="Anything we should know?"></textarea>
-    <button type="submit">Send</button>
-  </form>
-</section>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+        });
 
-<footer>
-  <div class="logo">Patch Spine <em style="color:var(--teal-glow);font-style:normal;">Center</em></div>
-  <p>Ocean Beach · San Diego · Since 1984</p>
-</footer>
+        // 2-Minute Health Tips Data
+        const healthTips = [
+            {
+                badge: "Ritual 01 • 2 Minutes",
+                icon: "sunrise",
+                title: "The 2-Minute Morning Spinal Wake-Up",
+                body: "Before checking your phone, stand tall by a window, take 5 slow diaphragmatic breaths, and perform gentle pelvic tilts and shoulder rolls. This pumps fresh synovial fluid into your spinal joints after hours of sleep.",
+                pro: "Pair this with a full glass of room-temperature water before coffee to rehydrate your spinal discs."
+            },
+            {
+                badge: "Ritual 02 • 2 Minutes",
+                icon: "monitor",
+                title: "The 30-Minute Micro-Break Reset",
+                body: "Sitting places up to 40% more pressure on your lumbar discs than standing. Every 30 to 45 minutes, stand up, interlock your fingers behind your back, open your chest, and gently tuck your chin for 20 seconds.",
+                pro: "Keep your computer monitor at eye level so your head stays balanced directly over your shoulders."
+            },
+            {
+                badge: "Ritual 03 • 2 Minutes",
+                icon: "droplets",
+                title: "Spinal Disc Hydration & Nutrition",
+                body: "Your intervertebral discs act like shock-absorbing sponges made largely of water. Consistent hydration paired with anti-inflammatory omega-3s and leafy greens keeps discs supple and resilient.",
+                pro: "Sip water steadily throughout the day rather than gulping large amounts all at once."
+            },
+            {
+                badge: "Ritual 04 • 2 Minutes",
+                icon: "moon",
+                title: "Neutral Spine Sleep Setup",
+                body: "Spend 2 minutes before bed aligning your pillows. If you sleep on your side, place a supportive pillow between your knees to keep your hips and lower spine level. Back sleepers benefit from a small pillow under the knees.",
+                pro: "Avoid sleeping on your stomach, which places prolonged rotational strain on your cervical spine."
+            }
+        ];
 
-<script>
-const nav = document.getElementById('nav');
-window.addEventListener('scroll', () => {
-  nav.classList.toggle('scrolled', window.scrollY > 60);
-});
+        const tabLabels = ["01. Morning Reset", "02. Desk Posture", "03. Disc Hydration", "04. Sleep Setup"];
 
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if (e.isIntersecting) e.target.classList.add('visible');
-  });
-}, { threshold: 0.12 });
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-</script>
+        function selectTip(index) {
+            const tip = healthTips[index];
+            document.getElementById('tip-badge').textContent = tip.badge;
+            document.getElementById('tip-title').textContent = tip.title;
+            document.getElementById('tip-body').textContent = tip.body;
+            document.getElementById('tip-pro').innerHTML = `<strong class="text-white">Dr. Patch's Note:</strong> ${tip.pro}`;
+            
+            const iconEl = document.getElementById('tip-icon');
+            iconEl.setAttribute('data-lucide', tip.icon);
+
+            const buttons = document.querySelectorAll('.tip-tab-btn');
+            buttons.forEach((btn, idx) => {
+                if (idx === index) {
+                    btn.className = "tip-tab-btn active px-4 py-3.5 rounded-2xl text-xs sm:text-sm font-semibold transition-all bg-white text-ocean-950 shadow-md text-left flex items-center justify-between";
+                    btn.innerHTML = `<span>${tabLabels[idx]}</span><i data-lucide="chevron-right" class="w-4 h-4"></i>`;
+                } else {
+                    btn.className = "tip-tab-btn px-4 py-3.5 rounded-2xl text-xs sm:text-sm font-semibold transition-all bg-white/10 border border-white/15 text-ocean-100 hover:bg-white/20 text-left flex items-center justify-between";
+                    btn.innerHTML = `<span>${tabLabels[idx]}</span><i data-lucide="chevron-right" class="w-4 h-4 opacity-50"></i>`;
+                }
+            });
+            lucide.createIcons();
+        }
+
+        // Booking Modal Controls
+        const bookingModal = document.getElementById('booking-modal');
+        const bookingFormContainer = document.getElementById('booking-form-container');
+        const bookingSuccessState = document.getElementById('booking-success-state');
+
+        function openBookingModal() {
+            bookingFormContainer.classList.remove('hidden');
+            bookingSuccessState.classList.add('hidden');
+            bookingModal.classList.remove('hidden');
+            bookingModal.classList.add('flex');
+        }
+
+        function closeBookingModal() {
+            bookingModal.classList.add('hidden');
+            bookingModal.classList.remove('flex');
+        }
+
+        bookingModal.addEventListener('click', (e) => {
+            if (e.target === bookingModal) closeBookingModal();
+        });
+
+        function handleBookingSubmit(event) {
+            event.preventDefault();
+            bookingFormContainer.classList.add('hidden');
+            bookingSuccessState.classList.remove('hidden');
+            event.target.reset();
+        }
+
+        // Copy Address Utility
+        function copyAddress() {
+            const address = "1952 Sunset Cliffs Blvd, San Diego, CA 92107";
+            const tempInput = document.createElement("input");
+            tempInput.value = address;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            try {
+                document.execCommand("copy");
+                showToast("Copied: 1952 Sunset Cliffs Blvd, San Diego");
+            } catch (err) {
+                showToast("1952 Sunset Cliffs Blvd, San Diego, CA 92107");
+            }
+            document.body.removeChild(tempInput);
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast-notification');
+            document.getElementById('toast-message').textContent = msg;
+            toast.classList.remove('translate-y-24', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-24', 'opacity-0');
+            }, 3000);
+        }
+
+        // Live San Diego Clinic Status Indicator
+        function updateClinicStatus() {
+            const badge = document.getElementById('clinic-status-badge');
+            try {
+                const now = new Date();
+                const sdTime = new Date(now.toLocaleString("en-US", { timeZone: "America/Los_Angeles" }));
+                const day = sdTime.getDay();
+                const hour = sdTime.getHours() + sdTime.getMinutes() / 60;
+
+                let isOpen = false;
+                if (day === 1) {
+                    if ((hour >= 9 && hour < 12) || (hour >= 14 && hour < 18)) isOpen = true;
+                } else if (day >= 2 && day <= 4) {
+                    if ((hour >= 9 && hour < 13) || (hour >= 14 && hour < 18)) isOpen = true;
+                }
+
+                if (isOpen) {
+                    badge.textContent = "Open Now";
+                    badge.className = "text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-sky-100 text-sky-800";
+                } else {
+                    badge.textContent = "Currently Closed";
+                    badge.className = "text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-ocean-50 text-ocean-800";
+                }
+            } catch (e) {
+                badge.textContent = "Mon–Thu Hours";
+            }
+        }
+        updateClinicStatus();
+    </script>
 </body>
 </html>
